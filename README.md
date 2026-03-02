@@ -6,6 +6,44 @@ A web application for managing group trips — including uploading bookings, sch
 
 ---
 
+## 📦 Installed Packages
+
+### Frontend (`/frontend`)
+
+| Package | What it does |
+|---------|-------------|
+| **react** | The core library for building the UI |
+| **react-dom** | Renders React components into the browser |
+| **typescript** | Adds types to JavaScript — catches bugs early |
+| **vite** | Runs the project locally and builds it for production |
+| **react-router-dom** | Handles navigation between pages (e.g. /trips, /day/1) |
+| **@tanstack/react-query** | Fetches and caches data from the backend |
+| **axios** | Makes HTTP requests to the backend API |
+| **tailwindcss@3** | Utility-first CSS — styles components using classes |
+| **postcss** | Required by Tailwind to process CSS |
+| **autoprefixer** | Adds browser compatibility prefixes to CSS automatically |
+| **@supabase/supabase-js** | Connects the frontend to Supabase (auth + database) |
+
+---
+
+### Backend (`/backend`)
+
+| Package | What it does |
+|---------|-------------|
+| **express** | The server framework — handles API routes and requests |
+| **cors** | Allows the frontend (different port) to talk to the backend |
+| **dotenv** | Loads secret keys from `.env` file into the app |
+| **typescript** | Adds types to the backend code |
+| **ts-node** | Runs TypeScript files directly without compiling first |
+| **nodemon** | Auto-restarts the server when you save a file |
+| **@types/express** | TypeScript type definitions for Express |
+| **@types/cors** | TypeScript type definitions for CORS |
+| **@types/node** | TypeScript type definitions for Node.js |
+| **prisma** | CLI tool for managing the database schema and migrations |
+| **@prisma/client** | Auto-generated client to query the database in code |
+
+---
+
 ## 🛠️ Full Tech Stack
 
 ### Code Editor
@@ -161,11 +199,11 @@ travel-app/
 
 - [x] GitHub account
 - [x] Node.js installed
+- [x] Cursor installed
 - [ ] Supabase account (free) — [supabase.com](https://supabase.com)
 - [ ] Vercel account (free, connect via GitHub) — [vercel.com](https://vercel.com)
 - [ ] Railway account (free to start) — [railway.app](https://railway.app)
 - [ ] Google Cloud account (for APIs) — [console.cloud.google.com](https://console.cloud.google.com)
-- [ ] Cursor installed — [cursor.sh](https://cursor.sh)
 
 ---
 
