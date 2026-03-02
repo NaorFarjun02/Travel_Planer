@@ -1,219 +1,205 @@
-# ✈️ Travel Manager App — Architecture & Planning
+# ✈️ Travel Manager App --- Next.js Architecture
 
 ## 🎯 Project Overview
 
-A web application for managing group trips — including uploading bookings, schedule views, maps, calendar integration, and AI-powered smart search.
+A modern fullstack web application for managing group trips ---
+including booking uploads, schedule views, maps, calendar integration,
+and AI-powered smart search.
 
----
+Built with **Next.js 14 (App Router)** for a simplified and scalable
+architecture.
 
-## 📦 Installed Packages
-
-### Frontend (`/frontend`)
-
-| Package | What it does |
-|---------|-------------|
-| **react** | The core library for building the UI |
-| **react-dom** | Renders React components into the browser |
-| **typescript** | Adds types to JavaScript — catches bugs early |
-| **vite** | Runs the project locally and builds it for production |
-| **react-router-dom** | Handles navigation between pages (e.g. /trips, /day/1) |
-| **@tanstack/react-query** | Fetches and caches data from the backend |
-| **axios** | Makes HTTP requests to the backend API |
-| **tailwindcss@3** | Utility-first CSS — styles components using classes |
-| **postcss** | Required by Tailwind to process CSS |
-| **autoprefixer** | Adds browser compatibility prefixes to CSS automatically |
-| **@supabase/supabase-js** | Connects the frontend to Supabase (auth + database) |
-
----
-
-### Backend (`/backend`)
-
-| Package | What it does |
-|---------|-------------|
-| **express** | The server framework — handles API routes and requests |
-| **cors** | Allows the frontend (different port) to talk to the backend |
-| **dotenv** | Loads secret keys from `.env` file into the app |
-| **typescript** | Adds types to the backend code |
-| **ts-node** | Runs TypeScript files directly without compiling first |
-| **nodemon** | Auto-restarts the server when you save a file |
-| **@types/express** | TypeScript type definitions for Express |
-| **@types/cors** | TypeScript type definitions for CORS |
-| **@types/node** | TypeScript type definitions for Node.js |
-| **prisma** | CLI tool for managing the database schema and migrations |
-| **@prisma/client** | Auto-generated client to query the database in code |
-
----
-
-## 🛠️ Full Tech Stack
-
-### Code Editor
-| Tool | Description |
-|------|-------------|
-| **Cursor** | VSCode-based editor with built-in AI that learns your project. Connects to GitHub. Recommended over plain VSCode |
-
-### Frontend (Client Side)
-| Tool | Description |
-|------|-------------|
-| **React 18** | UI library — most popular, massive community |
-| **TypeScript** | JavaScript with types — prevents bugs, easier to learn |
-| **Vite** | Fast build tool — runs the project locally |
-| **Tailwind CSS** | Utility-first CSS — fast styling with pre-built classes |
-| **React Router v6** | Page navigation management |
-| **TanStack Query** | Server state management & data fetching |
-
-### Backend (Server Side)
-| Tool | Description |
-|------|-------------|
-| **Node.js** | Runs JavaScript on the server |
-| **Express.js** | Framework for building APIs |
-| **TypeScript** | Consistency with the frontend |
-| **Prisma** | ORM — clean interface for database operations |
-
-### Database
-| Tool | Description |
-|------|-------------|
-| **Supabase** | Managed PostgreSQL, built-in Authentication, visual dashboard, free tier available |
-
-### External Services (APIs)
-| Service | Usage | Cost |
-|---------|-------|------|
-| **Google Maps API** | Daily map view + navigation | Free up to quota |
-| **Google Calendar API** | Auto-add events to calendar | Free |
-| **Google Cloud Vision / Gemini** | Read booking files (PDF/image) | Free up to quota |
-| **Claude API / OpenAI** | AI-powered attraction search | Pay per use |
-
----
-
-## 🚀 Deployment — Where to Host
-
-### Frontend → Vercel
-- Connects directly to GitHub
-- Auto-deploys on every `git push`
-- Completely free for personal projects
-- Automatic HTTPS + global CDN
-- 🔗 [vercel.com](https://vercel.com)
-
-### Backend → Railway
-- Full Node.js/Express support
-- GitHub integration — auto-deploy
-- ~$5/month (Hobby plan)
-- Easy environment variable management (API Keys, etc.)
-- 🔗 [railway.app](https://railway.app)
-
-### Database → Supabase
-- Managed PostgreSQL in the cloud
-- Free up to 500MB
-- Visual dashboard to view data
-- Built-in Auth (Google Login, Email, etc.)
-- 🔗 [supabase.com](https://supabase.com)
-
-### Domain → Namecheap
-- ~$10/year for a standard domain (.com / .io)
-- Simple management interface
-- Free DNS
-- Easy connection to Vercel
-- 🔗 [namecheap.com](https://namecheap.com)
-
----
+------------------------------------------------------------------------
 
 ## 🏗️ Architecture Overview
 
-```
-User (Browser)
-        │
-        ▼
-┌─────────────────┐
-│   React App     │ ◄──► Google Maps API
-│   (Vercel)      │ ◄──► Google Calendar API
-└────────┬────────┘
-         │ HTTP Requests
-         ▼
-┌─────────────────┐
-│  Express API    │ ◄──► Claude/OpenAI API (smart search)
-│  (Railway)      │ ◄──► Google Cloud Vision (booking reader)
-└────────┬────────┘
-         │ Prisma ORM
-         ▼
-┌─────────────────┐
-│   Supabase      │
-│  (PostgreSQL)   │
-└─────────────────┘
-```
+    User (Browser)
+            │
+            ▼
+    ┌────────────────────────────┐
+    │      Next.js App           │
+    │  (Frontend + API Routes)   │
+    │        Vercel Hosting      │
+    └─────────────┬──────────────┘
+                  │
+                  ▼
+            Supabase (PostgreSQL)
+                  │
+                  ▼
+        External Services (APIs)
+        - Google Maps API
+        - Google Calendar API
+        - Google Cloud Vision
+        - OpenAI / Claude
 
----
+------------------------------------------------------------------------
+
+## 🛠️ Tech Stack
+
+### Frontend + Backend (Fullstack)
+
+-   Next.js 14 (App Router)
+-   React 18
+-   TypeScript
+-   Tailwind CSS
+-   Server Actions
+-   API Route Handlers
+
+### Database
+
+-   Supabase (Managed PostgreSQL)
+-   Prisma ORM
+
+### Authentication
+
+-   Supabase Auth (Google + Email login)
+
+### External APIs
+
+-   Google Maps API
+-   Google Calendar API
+-   Google Cloud Vision (booking reader)
+-   OpenAI / Claude API (AI search)
+
+------------------------------------------------------------------------
 
 ## 📁 Recommended Folder Structure
 
+    travel-app/
+    ├── app/                  # Next.js App Router
+    │   ├── layout.tsx
+    │   ├── page.tsx
+    │   ├── trips/
+    │   ├── api/
+    │   └── dashboard/
+    │
+    ├── components/           # Reusable UI components
+    ├── lib/                  # Prisma, Supabase, utilities
+    ├── services/             # External API logic
+    ├── types/                # Shared TypeScript types
+    ├── prisma/
+    │   └── schema.prisma
+    │
+    ├── public/
+    └── README.md
+
+------------------------------------------------------------------------
+
+## 🚀 Development Setup
+
+### 1. Install Dependencies
+
+``` bash
+npm install
 ```
-travel-app/
-├── frontend/                  # React App
-│   ├── src/
-│   │   ├── components/        # UI components
-│   │   ├── pages/             # Pages (trips, single day, map)
-│   │   ├── hooks/             # Custom React Hooks
-│   │   ├── services/          # API calls
-│   │   └── types/             # TypeScript types
-│   └── package.json
-│
-├── backend/                   # Express Server
-│   ├── src/
-│   │   ├── routes/            # API routes
-│   │   ├── controllers/       # Business logic
-│   │   ├── services/          # External API integrations
-│   │   └── prisma/            # Schema + migrations
-│   └── package.json
-│
-└── README.md
+
+### 2. Run Development Server
+
+``` bash
+npm run dev
 ```
 
----
+Visit: http://localhost:3000
 
-## 📋 Recommended Development Order
+------------------------------------------------------------------------
 
-| Phase | What to Build | Est. Time |
-|-------|---------------|-----------|
-| **1** | Project setup + Auth (Supabase) | Week 1 |
-| **2** | Trip CRUD — create, edit, delete | Week 2 |
-| **3** | Day-by-day and hour-by-hour schedule view | Week 3 |
-| **4** | Google Maps integration | Week 4 |
-| **5** | Booking uploads + Google Calendar | Weeks 5–6 |
-| **6** | AI-powered smart search | Week 7 |
-| **7** | Full deployment + custom domain | Week 8 |
+## 🔐 Environment Variables (.env)
 
----
+Create a `.env.local` file:
 
-## 💰 Estimated Monthly Costs (at launch)
+    DATABASE_URL=
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=
+    OPENAI_API_KEY=
+    GOOGLE_MAPS_API_KEY=
+    GOOGLE_CALENDAR_API_KEY=
 
-| Service | Cost |
-|---------|------|
-| Vercel (Frontend) | Free |
-| Supabase (DB) | Free |
-| Railway (Backend) | ~$5 |
-| Namecheap (Domain) | ~$1/month |
-| Google APIs | Free up to quota |
-| **Total** | **~$6/month** |
+------------------------------------------------------------------------
 
----
+## 🧠 Core Features Roadmap
 
-## ✅ Prerequisites Checklist
+### Phase 1 --- Auth + Trip CRUD
 
-- [x] GitHub account
-- [x] Node.js installed
-- [x] Cursor installed
-- [ ] Supabase account (free) — [supabase.com](https://supabase.com)
-- [ ] Vercel account (free, connect via GitHub) — [vercel.com](https://vercel.com)
-- [ ] Railway account (free to start) — [railway.app](https://railway.app)
-- [ ] Google Cloud account (for APIs) — [console.cloud.google.com](https://console.cloud.google.com)
+-   Supabase authentication
+-   Create / Edit / Delete trips
+-   Dashboard overview
 
----
+### Phase 2 --- Schedule View
 
-## 📌 Important Notes
+-   Day-by-day breakdown
+-   Timeline layout
+-   Drag & drop planning
 
-- **Google Cloud** — requires a credit card but has a generous free tier that's more than enough for development
-- **Supabase Auth** — provides Google/Email login out of the box, no need to build it from scratch
-- **Vercel + GitHub** — every `push` to `main` automatically updates the live site
-- **Railway** — can connect directly to Vercel and Supabase with minimal config
+### Phase 3 --- Maps Integration
 
----
+-   Google Maps daily route view
+-   Distance & duration calculation
 
-*Last updated: 2026 | Version 1.0*
+### Phase 4 --- Booking Uploads
+
+-   PDF / Image upload
+-   Google Vision text extraction
+-   Auto trip parsing
+
+### Phase 5 --- Calendar Integration
+
+-   One-click add to Google Calendar
+
+### Phase 6 --- AI Smart Search
+
+-   Natural language search
+-   "Best sushi near hotel under 30\$"
+-   Personalized attraction suggestions
+
+------------------------------------------------------------------------
+
+## 💰 Estimated Monthly Costs
+
+  Service           Cost
+  ----------------- -----------------------
+  Vercel            Free
+  Supabase          Free
+  Google APIs       Free up to quota
+  OpenAI / Claude   Pay per usage
+  Domain            \~\$1/month
+  **Total (MVP)**   **\~\$1--\$10/month**
+
+------------------------------------------------------------------------
+
+## 📦 Deployment
+
+### Frontend + Backend
+
+Deploy directly to **Vercel**.
+
+-   Connect GitHub repository
+-   Auto deploy on every push
+-   Automatic HTTPS
+-   Global CDN
+
+### Database
+
+Hosted on **Supabase Cloud**.
+
+------------------------------------------------------------------------
+
+## 📌 Design Principles
+
+-   Clean dashboard layout
+-   Data-first interface
+-   Minimalist UI
+-   Mobile-friendly
+-   AI-enhanced user experience
+
+------------------------------------------------------------------------
+
+## 🧭 Long-Term Scalability
+
+-   Background jobs for AI processing
+-   Rate limiting middleware
+-   Caching strategy (React Query / Server Cache)
+-   Role-based permissions (future)
+
+------------------------------------------------------------------------
+
+Last updated: 2026-03-02 Version: 2.0 (Next.js Fullstack)
